@@ -9,7 +9,7 @@ def common_words(x, remove_stop_words = True):
 
     STOP_WORDS = ["a", "an", "the", "this", "that", "of", "for", "or", 
          "and", "on", "to", "be", "if", "we", "you", "in", "is", 
-         "at", "it", "rt", "mt", "with"]
+         "at", "it", "with"]
 
     if remove_stop_words:
         lx = [w for w in lx if w not in STOP_WORDS]
