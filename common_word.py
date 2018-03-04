@@ -1,19 +1,26 @@
-def common_word(x):
+def common_words(x):
+    '''
+    Takes in a .txt file and returns the most commonly used word. 
+    '''
+
+    x = open(x, 'r')
+    x = x.read()
+    lx = x.split()
+    
     d = {}
-    x = x.split()
-    for word in x:
+    for word in lx:
         if word not in d.keys():
             d[word] = 1
         else:
             d[word] += 1
 
-    k = list(k.keys())
-    v = list(v.values())
-    max = k[v.index(max(v))]
+    k = list(d.keys())
+    v = list(d.values())
+    most_common = sorted(d, key = d.get, reverse=True)[:5]
             
-    return max
+    return "The five most common words are: " + ( ", ".join( repr(e) for e in most_common))
 
-x = "“The sovereigns? I do not speak of Russia,” said the vicomte, polite but hopeless: “The sovereigns, madame... What have they done for Louis XVII, for the Queen, or for Madame Elizabeth? Nothing!” and he became more animated. “And believe me, they are reaping the reward of their betrayal of the Bourbon cause. The sovereigns! Why, they are sending ambassadors to compliment the usurper.”"
+
 
 
 
