@@ -26,10 +26,3 @@ def common_words(x, remove_stop_words = True):
     most_common = sorted(d, key = d.get, reverse=True)[:5]
             
     return "The five most common words are: " + ( ", ".join( repr(e) for e in most_common))
-
-
-
-
-
-
-
