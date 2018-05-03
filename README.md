@@ -4,17 +4,17 @@
 [`caesar_cipher`](https://github.com/natashamathur/natasha/blob/master/caesar_cipher): Encodes and decodes phrases using a Caesar Cipher. 
 https://en.wikipedia.org/wiki/Caesar_cipher
 
-tennis: This is a tennis match simulator implemented using classes. (To add: Webscrape ATP website to improve "accuracy" of chance of winning)
+[`tennis`](https://github.com/natashamathur/natasha/blob/master/tennis.py): This is a tennis match simulator implemented using classes. (To add: Webscrape ATP website to improve "accuracy" of chance of winning)
 
-common_word: Finds the most common word in a string (To add: Regex for output)
+[`common_word`](https://github.com/natashamathur/natasha/blob/master/common_word.py): Finds the most common word in a string (To add: Regex for output)
 
 ###  Exercises
 
 #### These are practice programming exercises. 
 
-dna: This is a hypothetical challenge based on DNA strings from HackerRank. https://www.hackerrank.com/challenges/determining-dna-health/problem
+[`dna`](https://github.com/natashamathur/natasha/blob/master/Exercises/dna): This is a hypothetical challenge based on DNA strings from HackerRank. https://www.hackerrank.com/challenges/determining-dna-health/problem
 
-merge_intervals: Given a collection of intervals, merge all overlapping intervals.
+[`merge_intervals`](https://github.com/natashamathur/natasha/blob/master/Exercises/merge_intervals): Given a collection of intervals, merge all overlapping intervals.
 
 
 
