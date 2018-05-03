@@ -1,5 +1,18 @@
+from langdetect import detect
+
+def cleanup(message):
+    PUNC  = "!?.#@$%^&*()"
+    message = message.lower()
+    
+    final = ''
+    for i in message:
+        final = final + i.strip(PUNC)
+
+    return final
+      
 def caesar_cipher(cipher_type, message, encode=True):
     ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+    message = cleanup(message)
     start = ALPHABET.find(cipher_type)
     ciph_letters = ALPHABET[start:] + ALPHABET[:start]
     translated = ''
@@ -17,11 +30,10 @@ def caesar_cipher(cipher_type, message, encode=True):
 
     return translated
 
-x = caesar_cipher("g", "procrastination is great")
+x = caesar_cipher("g", "Procrastination is awesome!")
 print(x)
 
 def decipher(message):
-    from langdetect import detect
     ALPHABET = "abcdefghijklmnopqrstuvwxyz"
     
     for letter in ALPHABET:
