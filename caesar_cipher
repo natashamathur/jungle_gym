@@ -1,0 +1,34 @@
+def caesar_cipher(cipher_type, message, encode=True):
+    ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+    start = ALPHABET.find(cipher_type)
+    ciph_letters = ALPHABET[start:] + ALPHABET[:start]
+    translated = ''
+
+    if encode == True:
+        output, input = ciph_letters, ALPHABET
+    else:
+        output, input = ALPHABET, ciph_letters
+        
+    for letter in message:
+        if letter == ' ':
+            translated = translated + letter
+        else:
+            translated = translated + output[input.find(letter)]
+
+    return translated
+
+x = caesar_cipher("g", "procrastination is great")
+print(x)
+
+def decipher(message):
+    from langdetect import detect
+    ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+    
+    for letter in ALPHABET:
+        translated = caesar_cipher(letter, message, encode=False)
+        if detect(translated) == 'en':
+            return translated, letter
+
+    return "Cannot be translated to English"
+
+print(decipher(x))
