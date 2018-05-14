@@ -10,11 +10,12 @@ https://en.wikipedia.org/wiki/Caesar_cipher
 
 ###  Exercises
 
-#### These are practice programming exercises. 
+#### These are practice programming puzzles. 
 
-[`dna`](https://github.com/natashamathur/natasha/blob/master/Exercises/dna): This is a hypothetical challenge based on DNA strings from HackerRank. https://www.hackerrank.com/challenges/determining-dna-health/problem
+[`dna`](https://github.com/natashamathur/natasha/blob/master/Puzzles/dna): This is a hypothetical challenge based on DNA strings from HackerRank. https://www.hackerrank.com/challenges/determining-dna-health/problem
 
-[`merge_intervals`](https://github.com/natashamathur/natasha/blob/master/Exercises/merge_intervals): Given a collection of intervals, merge all overlapping intervals.
+[`merge_intervals`](https://github.com/natashamathur/natasha/blob/master/Puzzles/merge_intervals): Given a collection of intervals, merge all overlapping intervals.
+
 
 
 
