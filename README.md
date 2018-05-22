@@ -8,7 +8,7 @@ https://en.wikipedia.org/wiki/Caesar_cipher
 
 [`common_word`](https://github.com/natashamathur/natasha/blob/master/common_word.py): Finds the most common word in a string (To add: Regex for output)
 
-###  Exercises
+###  Puzzles
 
 #### These are practice programming puzzles. 
 
