@@ -6,7 +6,7 @@ https://en.wikipedia.org/wiki/Caesar_cipher
 
 [`tennis`](https://github.com/natashamathur/natasha/blob/master/tennis.py): This is a tennis match simulator implemented using classes. (To add: Webscrape ATP website to improve "accuracy" of chance of winning)
 
-[`common_word`](https://github.com/natashamathur/natasha/blob/master/common_word.py): Finds the most common word in a string (To add: Regex for output)
+[`common_word`](https://github.com/natashamathur/natasha/blob/master/common_word.py): Finds the most common word in a string. Includes a function to get a string of all facebook comments. 
 
 ###  Puzzles
 
