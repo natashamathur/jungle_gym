@@ -1,4 +1,5 @@
 # Source: https://uchicago.kattis.com/problems/securedoors
+# Time: 30 mins
 
 events = ['entry Abbey', 'entry Abbey', 'exit Abbey', 'entry Tyrone','exit Mason', 'entry Demetra', 'exit Latonya', 'entry Idella']
 
