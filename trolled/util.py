@@ -108,7 +108,7 @@ Explore and Chart Data
 '''
 
 # updated
-def find_top(df, col_of_interest, sort_by='projectid', ascending=False):
+def find_top(df, col_of_interest, sort_by='id', ascending=False):
     '''
     Find the most common (or least) values in a given column
     
@@ -241,7 +241,7 @@ def plot_pie_chart(vals, labels, colors = ["red", "blue", "green", "violet", "or
     plt.show()
     
 # updated
-def bar_top(df, col_of_interest, xlabel, ylabel, title, selected_col='projectid', max = 5, width =0.35, color='blue'):
+def bar_top(df, col_of_interest, xlabel, ylabel, title, selected_col='projectid', max = 5, width =0.35, color='blue', sort_by='id'):
     '''
     Creates a bar chart of the top categories in a given column
     
@@ -255,13 +255,13 @@ def bar_top(df, col_of_interest, xlabel, ylabel, title, selected_col='projectid'
             color choices: https://matplotlib.org/api/colors_api.html
     '''
     
-    top = find_top(df, col_of_interest)
+    top = find_top(df, col_of_interest, sort_by)
     top = top[selected_col].head(max)
         
     plot_bar_chart(tuple(top.index), tuple(top), xlabel, ylabel, title, width, color)
 
 # updated
-def pie_top(df, col_of_interest, selected_col='projectid', labels = '', colors = ["red", "blue", "green", "violet", "orange"]):
+def pie_top(df, col_of_interest, selected_col='projectid', labels = '', sort_by='id', colors = ["red", "blue", "green", "violet", "orange"]):
     '''
     Creates a pie chart of the top categories in a given column
     
@@ -275,7 +275,7 @@ def pie_top(df, col_of_interest, selected_col='projectid', labels = '', colors =
     '''
     
     
-    top = find_top(df, col_of_interest)
+    top = find_top(df, col_of_interest, sort_by)
     top = top[selected_col]
     if labels == '':
         labels = tuple(top.index)
