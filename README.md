@@ -16,6 +16,8 @@ https://en.wikipedia.org/wiki/Caesar_cipher
 
 [`merge_intervals`](https://github.com/natashamathur/natasha/blob/master/Puzzles/merge_intervals): Given a collection of intervals, merge all overlapping intervals.
 
+[`secure_doors`](https://github.com/natashamathur/natasha/blob/master/Puzzles/secure_doors): Building log from Kattis. https://uchicago.kattis.com/problems/securedoors
+
 
 
 
