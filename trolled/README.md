@@ -8,4 +8,4 @@
 
 [Source for stop words in Russian](https://github.com/stopwords-iso/stopwords-ru)
 
-[Google Translate API](https://pypi.org/project/googletrans/)
+[Library for Google Translate API](https://pypi.org/project/googletrans/)
