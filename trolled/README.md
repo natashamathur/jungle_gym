@@ -1,4 +1,4 @@
-# Resources
+# Resources Used
 
 [Data Source](https://www.kaggle.com/vikasg/russian-troll-tweets)
 
