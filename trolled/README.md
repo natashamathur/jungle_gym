@@ -1,4 +1,4 @@
-# Resources
+# Resources Used
 
 [Data Source](https://www.kaggle.com/vikasg/russian-troll-tweets)
 
@@ -8,4 +8,4 @@
 
 [Source for stop words in Russian](https://github.com/stopwords-iso/stopwords-ru)
 
-[Google Translate API](https://pypi.org/project/googletrans/)
+[Library for Google Translate API](https://pypi.org/project/googletrans/)
