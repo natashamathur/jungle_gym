@@ -1,7 +1,7 @@
 
 # Programs I've been playing around with!
 
-[`trolled`](https://github.com/natashamathur/natasha/tree/master/trolled): Analysis of tweets from accounts linked to Russia's Internet Research Agency during the 2016 US Election. 
+[`trolled`](https://github.com/natashamathur/natasha/blob/master/trolled/trolls.ipynb): Analysis of tweets from accounts linked to Russia's Internet Research Agency during the 2016 US Election. 
 
 [`caesar_cipher`](https://github.com/natashamathur/natasha/blob/master/caesar_cipher): Encodes and decodes phrases using a [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
