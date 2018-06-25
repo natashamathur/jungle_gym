@@ -1,6 +1,7 @@
 # Resources Used
 
 [Data Source](https://www.kaggle.com/vikasg/russian-troll-tweets)
+Tweets complied and published by [Ben Popkin](https://twitter.com/bpopken)
 
 [Background Information](https://www.nbcnews.com/tech/social-media/now-available-more-200-000-deleted-russian-troll-tweets-n844731)
 
