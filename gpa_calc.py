@@ -1,3 +1,5 @@
+# To run using the command line enter a command in this format: `python3 calc.py "['B','A-', 'B+', 'B+']"`
+
 import argparse
 
 grades = ['B', 'B+', 'B-', 'B+', 'B+', 'B', 'A-', 'B+', 'B+']
