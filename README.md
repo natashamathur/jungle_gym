@@ -9,6 +9,8 @@
 
 [`common_word`](https://github.com/natashamathur/natasha/blob/master/common_word.py): Finds the most common word in a string. Includes a function to get a string of all Facebook comments. 
 
+[`gpa_calc`](https://github.com/natashamathur/natasha/blob/master/gpa_calc.py): Calculates GPA based on grades entered using the [UChicago](https://registrar.uchicago.edu/page/grading-systems) grading scale - so I don't have to do it myself!. To run using the command line enter a command in this format: `python3 calc.py "['B','A-', 'B+', 'B+']"`
+
 ###  Puzzles
 
 #### These are practice programming exercises. 
