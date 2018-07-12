@@ -11,7 +11,7 @@ gpa_scale = {
     'D': 1,
 }
 
-def gpa_calc(grades=grades, gpa_scale = gpa_scale, inc = 0.3):
+def gpa_calc(grades=grades, gpa_scale = gpa_scale, inc = 0.3, round_gpa = 2):
     # Calculates GPA based on UChicago grading scale
     # Input should be a list of strings 
     
@@ -25,8 +25,11 @@ def gpa_calc(grades=grades, gpa_scale = gpa_scale, inc = 0.3):
             score -= inc
         total += score
 
-    gpa = round((total/len(grades)), 2)
-    return gpa
+    if round_gpa:
+        return round((total/len(grades)), 2)
+    else:
+        return (total/len(grades)
+  
 
 def get_grades_list(g):
     # Turn argparse argument into a list
