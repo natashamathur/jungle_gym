@@ -50,3 +50,21 @@ def determine_dna_health(g, h, genes):
 # generate output
 genes = [l1, l2, l3]
 print(determine_dna_health(g,h, genes))
+
+# https://www.hackerrank.com/challenges/word-order/problem
+
+def word_order(input):
+    num_words = len(input)
+    wordd = {}
+
+    for w in input:
+        if w not in wordd.keys():
+            wordd[w] = 1
+        else:
+            wordd[w] += 1
+
+    print(len(wordd.keys()))
+    print(list(wordd.values()))
+
+input = ['cat', 'cat', 'dog', 'eagle']
+word_order(input)
