@@ -10,9 +10,6 @@
 
 [`tennis`](https://github.com/natashamathur/natasha/blob/master/tennis.py): This is a tennis match simulator implemented using classes. 
 
-[`trolled`](https://github.com/natashamathur/natasha/blob/master/trolled/trolls.ipynb): Analysis of tweets from accounts linked to Russia's Internet Research Agency during the 2016 US Election. 
-
-
 ###  Puzzles
 
 #### These are practice programming exercises. 
