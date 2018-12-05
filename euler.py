@@ -1,3 +1,20 @@
+# 1 	Multiples of 3 and 5
+
+n = 1000
+mults = []
+for i in range(1, n):
+    if i % 3 == 0 or i % 5 ==0:
+		mults.append(i)
+
+sum(mults)
+
+#2	Even Fibonacci numbers
+
+		
+>>> sum(mults)
+233168
+
+
 # https://projecteuler.net/problem=539
 
 n = 1000
