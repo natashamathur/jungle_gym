@@ -1,5 +1,5 @@
 
-# Programs I've been playing around with!
+# Programs I've been playing around with
 
 [`budget tracker`](https://github.com/natashamathur/jungle_gym/blob/master/budget_tracker.py): Keeps track of my monthly expenses. 
 
