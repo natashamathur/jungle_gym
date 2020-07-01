@@ -87,10 +87,6 @@ if __name__ == "__main__":
     parser.add_argument("--d")
     args = parser.parse_args()
 
-    if args.action == "test_read_in":
-        e = ledger("open")
-        print(e)
-
     if args.filename:
         fn = args.filename
     else:
@@ -98,14 +94,14 @@ if __name__ == "__main__":
 
     if args.action == "add":
         if not args.d or len(args.d.split(" ")) < 3:
-            print("""Please enter values in the form "food, 25, "takeout" """)
+            print("""Please enter values in the form "food 25 "takeout" """)
             quit()
 
         action_add_purchase()
 
     if args.action == "set budget":
         if not args.d or len(args.d.split(" ")) < 2:
-            print("""Please enter values in the form "gym, 80" """)
+            print("""Please enter values in the form "gym 80" """)
             quit()
 
         action_set_budget()
