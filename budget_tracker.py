@@ -27,9 +27,8 @@ def set_budget(ledger, category, amount):
 
 def add_expense(ledger, category, amount, item):
     ledger[category]['spent'] = ledger[category]['spent'] + amount
-    ledger[category]['items'].append(item)
+    ledger[category]['breakdown'][item] = amount
     return ledger
-
 
 def report_card(ledger):
     print("Month to Date:")
@@ -48,7 +47,7 @@ def report_card(ledger):
 def action_add_purchase():
     ledger = open_ledger(fn)
         
-    category, amount, item = args.entry.split(" ")
+    category, amount, item = args.d.split(" ")
     category, amount, item = category.strip(" "), float(amount), item.strip(" ")
     ledger = add_expense(ledger, category, amount, item)
     report_card(ledger)
@@ -58,7 +57,7 @@ def action_add_purchase():
 def action_set_budget():
     ledger = open_ledger(fn)
         
-    category, amount = args.entry.split(" ")
+    category, amount = args.d.split(" ")
     category, amount = category.strip(" "), float(amount)
     ledger = set_budget(ledger, category, amount)
     #print(ledger)
@@ -70,7 +69,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('action')
     parser.add_argument('--filename')
-    parser.add_argument('--entry')
+    parser.add_argument('--d')
     args = parser.parse_args()
 
     if args.action == 'test_read_in':
@@ -83,14 +82,14 @@ if __name__ == "__main__":
         fn = 'expenses.json'
 
     if args.action == 'add':
-        if not args.entry or len(args.entry.split(" ")) < 3:
+        if not args.d or len(args.d.split(" ")) < 3:
             print('''Please enter values in the form "food, 25, "takeout" ''')
             quit()
                    
         action_add_purchase()
 
     if args.action == 'set budget':
-        if not args.entry or len(args.entry.split(" ")) < 2:
+        if not args.d or len(args.d.split(" ")) < 2:
             print('''Please enter values in the form "gym, 80" ''')
             quit()
                  
@@ -103,8 +102,8 @@ if __name__ == "__main__":
 
     if args.action == 'budget item':
         ledger = open_ledger(fn)
-        category = ledger[args.entry]
+        category = ledger[args.d]
         print("Budget: {}".format(category['budget']))
         print("Spent: {}".format(category['spent']))
-        print("On: {}".format(category['items']))
+        print("On: {}".format(category['breakdown']))
         close_ledger(ledger, fn)
