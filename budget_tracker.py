@@ -2,6 +2,8 @@ import json
 import ast
 import argparse
 
+# should be run locally
+
 categories = ['rent', 'travel', 'transit', 'gym', 'donations', 'food', 'discretionary']
 blank_expenses = "{'rent': {'budget': 0, 'spent': 0, 'items': []}, 'travel': {'budget': 0, 'spent': 0, 'items': []}, 'transit': {'budget': 0, 'spent': 0, 'items': []}, 'gym': {'budget': 0, 'spent': 0, 'items': []}, 'donations': {'budget': 0, 'spent': 0, 'items': []}, 'food': {'budget': 0, 'spent': 0, 'items': []}, 'discretionary': {'budget': 0, 'spent': 0, 'items': []}}"
 
