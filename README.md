@@ -1,6 +1,8 @@
 
 # Programs I've been playing around with!
 
+[`budget tracker`](https://github.com/natashamathur/jungle_gym/blob/master/budget_tracker.py): Keeps track of my monthly expenses. 
+
 [`caesar_cipher`](https://github.com/natashamathur/natasha/blob/master/caesar_cipher): Encodes and decodes phrases using a [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
 [`common_word`](https://github.com/natashamathur/natasha/blob/master/common_word.py): Finds the most common word in a string. Includes a function to get a string of all Facebook comments. 
