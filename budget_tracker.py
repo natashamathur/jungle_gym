@@ -81,7 +81,7 @@ def report_card(filename):
 
     manage_ledger("close", ledger=ledger, filename = fn)
 
-def add_record(action, details):
+def add_record(action, fn, details):
     #action can be "spending" or "budget"
     # Open ledger, enter item, close ledger
     ledger = manage_ledger("open", filename = fn)
@@ -110,14 +110,14 @@ if __name__ == "__main__":
             print("""Please enter values in the form "food 25 "takeout" """)
             quit()
 
-        add_record("spending", args.d)
+        add_record("spending", fn, args.d)
 
     if args.action == "set budget":
         if not args.d or len(args.d.split(" ")) < 2:
             print("""Please enter values in the form "gym 80" """)
             quit()
 
-        add_record("budget", args.d)
+        add_record("budget", fn, args.d)
 
     if args.action == "report card":
         report_card(fn)
