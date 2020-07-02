@@ -12,49 +12,55 @@ blank_expenses = "{'rent': {'budget': 0, 'spent': 0, 'items': []}, 'travel': {'b
 def manage_ledger(action, ledger=None, filename="expenses.json"):
     # Load and save JSON file containing saved ledger
 
-    if action == 'open':
+    if action == "open":
         with open(filename, "r") as fp:
             ledger = json.load(fp)
         return ledger
 
-    if action == 'close':
+    if action == "close":
         with open(filename, "w") as fp:
             json.dump(ledger, fp)
 
 
 def reset_all(filename, budget_or_spent):
     # type should be "budget" or "spent"
-    ledger = manage_ledger("open", filename = fn)
+    ledger = manage_ledger("open", filename=fn)
     for category in ledger.keys():
         ledger[category][budget_or_spent] = 0
-    manage_ledger("close", ledger = ledger)
+    manage_ledger("close", ledger=ledger)
+
 
 def enter_item(action, ledger, details):
     # Enter a spending or saving amount
 
-    if action == 'spending':
+    focus = ledger[category]
+
+    if action == "spending":
 
         category, amount, item = details.split(" ")
         category, amount, item = category.strip(" "), float(amount), item.strip(" ")
-    
-        ledger[category]["spent"] = ledger[category]["spent"] + amount
-        ledger[category]["breakdown"][item] = amount
+
+        focus["spent"] = focus["spent"] + amount
+        if item not in ledger[category]["breakdown"].keys():
+            focus["breakdown"][item] = amount
+        else:
+            focus["breakdown"][item] = focus["breakdown"][item] + amount
         return ledger
 
-    if action == 'budget':
+    if action == "budget":
 
         category, amount = details.split(" ")
         category, amount = category.strip(" "), float(amount)
 
-        ledger[category]["budget"] = amount
+        focus["budget"] = amount
         return ledger
 
 
 def report_card(filename):
     # Print out spending by category
 
-    ledger = manage_ledger("open", filename = fn)
-    
+    ledger = manage_ledger("open", filename=fn)
+
     print()
     print("MONTH TO DATE: {}".format(datetime.now().strftime("%B")))
     print()
@@ -79,19 +85,26 @@ def report_card(filename):
     print()
     print("Total Spent: ${}".format(total_spent))
 
-    manage_ledger("close", ledger=ledger, filename = fn)
+    manage_ledger("close", ledger=ledger, filename=fn)
+
 
 def add_record(action, details):
-    #action can be "spending" or "budget"
+    # action can be "spending" or "budget"
     # Open ledger, enter item, close ledger
-    ledger = manage_ledger("open", filename = fn)
+    ledger = manage_ledger("open", filename=fn)
     ledger = enter_item("spending", ledger, details)
-    manage_ledger("close", ledger = ledger)
+    manage_ledger("close", ledger=ledger)
 
-    if action == 'spending':
+    if action == "spending":
         report_card(ledger)
 
-
+def report_on_item(filename, category):
+    ledger = manage_ledger("open", filename=fn)
+    category = ledger[category]
+    print("Budget: {}".format(category["budget"]))
+    print("Spent: {}".format(category["spent"]))
+    print("On: {}".format(category["breakdown"]))
+    manage_ledger("close", ledger=ledger)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -121,12 +134,7 @@ if __name__ == "__main__":
 
     if args.action == "report card":
         report_card(fn)
-        
 
-    if args.action == "budget item":
-        ledger = manage_ledger("open", filename = fn)
-        category = ledger[args.d]
-        print("Budget: {}".format(category["budget"]))
-        print("Spent: {}".format(category["spent"]))
-        print("On: {}".format(category["breakdown"]))
-        manage_ledger("close", ledger = ledger)
+    if args.action == "breakdown":
+        report_on_item(fn, args.d)
+        
