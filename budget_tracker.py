@@ -34,7 +34,6 @@ def enter_item(action, ledger, details):
     # Enter a spending or saving amount
 
     
-
     if action == "spending":
 
         
@@ -43,7 +42,7 @@ def enter_item(action, ledger, details):
         focus = ledger[category]
         
         focus["spent"] = focus["spent"] + amount
-        if item not in ledger[category]["breakdown"].keys():
+        if item not in focus["breakdown"].keys():
             focus["breakdown"][item] = amount
         else:
             focus["breakdown"][item] = focus["breakdown"][item] + amount
