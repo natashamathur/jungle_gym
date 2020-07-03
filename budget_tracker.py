@@ -6,7 +6,13 @@ from datetime import datetime
 # should be run locally
 
 categories = ["rent", "travel", "transit", "gym", "donations", "food", "discretionary"]
-blank_expenses = "{'rent': {'budget': 0, 'spent': 0, 'items': []}, 'travel': {'budget': 0, 'spent': 0, 'items': []}, 'transit': {'budget': 0, 'spent': 0, 'items': []}, 'gym': {'budget': 0, 'spent': 0, 'items': []}, 'donations': {'budget': 0, 'spent': 0, 'items': []}, 'food': {'budget': 0, 'spent': 0, 'items': []}, 'discretionary': {'budget': 0, 'spent': 0, 'items': []}}"
+blank_expenses = '''{'rent': {'budget': 0, 'spent': 0, 'items': {}},
+                'travel': {'budget': 0, 'spent': 0, 'items': {}},
+                'transit': {'budget': 0, 'spent': 0, 'items': {}},
+                'gym': {'budget': 0, 'spent': 0, 'items': {}},
+                'donations': {'budget': 0, 'spent': 0, 'items': {}},
+                'food': {'budget': 0, 'spent': 0, 'items': {}},
+                'discretionary': {'budget': 0, 'spent': 0, 'items': {}}}'''
 
 
 def manage_ledger(action, ledger=None, filename="expenses.json"):
@@ -25,8 +31,11 @@ def manage_ledger(action, ledger=None, filename="expenses.json"):
 def reset_all(filename, budget_or_spent):
     # type should be "budget" or "spent"
     ledger = manage_ledger("open", filename=fn)
-    for category in ledger.keys():
-        ledger[category][budget_or_spent] = 0
+    if budget_or_spent == 'both':
+        ledger = ast.literal_eval(blank_expenses)
+    else:
+        for category in ledger.keys():
+            ledger[category][budget_or_spent] = 0
     manage_ledger("close", ledger=ledger)
 
 
@@ -146,4 +155,7 @@ if __name__ == "__main__":
     if args.action == "options":
         print(''' "add", "set budget", "report card", "breakdown" ''')
         print("Default Categories: {}".format(', '.join(categories)))
+
+    if args.action == 'reset':
+        reset_all(fn, args.d)
         
