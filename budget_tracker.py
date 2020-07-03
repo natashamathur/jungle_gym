@@ -33,13 +33,15 @@ def reset_all(filename, budget_or_spent):
 def enter_item(action, ledger, details):
     # Enter a spending or saving amount
 
-    focus = ledger[category]
+    
 
     if action == "spending":
 
+        
         category, amount, item = details.split(" ")
         category, amount, item = category.strip(" "), float(amount), item.strip(" ")
-
+        focus = ledger[category]
+        
         focus["spent"] = focus["spent"] + amount
         if item not in ledger[category]["breakdown"].keys():
             focus["breakdown"][item] = amount
@@ -49,9 +51,11 @@ def enter_item(action, ledger, details):
 
     if action == "budget":
 
+        
         category, amount = details.split(" ")
         category, amount = category.strip(" "), float(amount)
-
+        focus = ledger[category]
+        
         focus["budget"] = amount
         return ledger
 
@@ -88,16 +92,11 @@ def report_card(filename):
     manage_ledger("close", ledger=ledger, filename=fn)
 
 
-<<<<<<< HEAD
-def add_record(action, details):
-    # action can be "spending" or "budget"
-=======
+
 def add_record(action, fn, details):
-    #action can be "spending" or "budget"
->>>>>>> 46a0c63e10713dc4484ce29f1c7633acf7361e8f
     # Open ledger, enter item, close ledger
     ledger = manage_ledger("open", filename=fn)
-    ledger = enter_item("spending", ledger, details)
+    ledger = enter_item(action, ledger, details)
     manage_ledger("close", ledger=ledger)
 
     if action == "spending":
@@ -141,5 +140,11 @@ if __name__ == "__main__":
         report_card(fn)
 
     if args.action == "breakdown":
+        if not args.d:
+            print("Please enter the category you want broken down.")
         report_on_item(fn, args.d)
+
+    if args.action == "options":
+        print(''' "add", "set budget", "report card", "breakdown" ''')
+        print("Default Categories: {}".format(', '.join(categories)))
         
