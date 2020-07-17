@@ -1,7 +1,7 @@
 
 # Programs I've been playing around with
 
-[`money_on_my_mind'](https://github.com/natashamathur/jungle_gym/blob/master/money_on_my_mind): Keeps track of my monthly expenses. 
+[`money_on_my_mind`](https://github.com/natashamathur/jungle_gym/blob/master/money_on_my_mind): Keeps track of my monthly expenses. 
 
 [`caesar_cipher`](https://github.com/natashamathur/natasha/blob/master/caesar_cipher): Encodes and decodes phrases using a [Caesar Cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
