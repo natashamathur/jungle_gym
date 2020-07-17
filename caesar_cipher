@@ -1,4 +1,4 @@
-'''
+"""
 Caesar cipher - Implement a Caesar cipher, both encoding and decoding. 
 The key is an integer from 1 to 25. This cipher rotates the letters of the alphabet (A to Z). The encoding replaces each letter
 with the 1st to 25th next letter in the alphabet (wrapping Z to A). So key 2 encrypts "HI" to "JK", but key 20 encrypts "HI" 
@@ -6,51 +6,56 @@ to "BC". This simple "monoalphabetic substitution cipher" provides almost no sec
 message can either use frequency analysis to guess the key, or just try all 25 keys.
 
 Time to implement: 1 hour
-'''
+"""
 
 from langdetect import detect
 
+
 def cleanup(message):
-    PUNC  = "!?.#@$%^&*()"
+    PUNC = "!?.#@$%^&*()"
     message = message.lower()
-    
-    final = ''
+
+    final = ""
     for i in message:
         final = final + i.strip(PUNC)
 
     return final
-      
+
+
 def caesar_cipher(cipher_type, message, encode=True):
     ALPHABET = "abcdefghijklmnopqrstuvwxyz"
     message = cleanup(message)
     start = ALPHABET.find(cipher_type)
     ciph_letters = ALPHABET[start:] + ALPHABET[:start]
-    translated = ''
+    translated = ""
 
     if encode == True:
         output, input = ciph_letters, ALPHABET
     else:
         output, input = ALPHABET, ciph_letters
-        
+
     for letter in message:
-        if letter == ' ':
+        if letter == " ":
             translated = translated + letter
         else:
             translated = translated + output[input.find(letter)]
 
     return translated
 
+
 x = caesar_cipher("g", "Procrastination is awesome!")
 print(x)
 
+
 def decipher(message):
     ALPHABET = "abcdefghijklmnopqrstuvwxyz"
-    
+
     for letter in ALPHABET:
         translated = caesar_cipher(letter, message, encode=False)
-        if detect(translated) == 'en':
+        if detect(translated) == "en":
             return translated, letter
 
     return "Cannot be translated to English"
+
 
 print(decipher(x))
