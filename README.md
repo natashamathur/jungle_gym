@@ -7,7 +7,7 @@
 
 [`common_word`](https://github.com/natashamathur/natasha/blob/master/common_word.py): Finds the most common word in a string. Includes a function to get a string of all Facebook comments. 
 
-[`gpa_calc`](https://github.com/natashamathur/natasha/blob/master/gpa_calc.py): Calculates GPA based on grades entered using the [UChicago](https://registrar.uchicago.edu/page/grading-systems) grading scale - so I don't have to do it myself! 
+[`gpa_calc`](https://github.com/natashamathur/natasha/blob/master/gpa_calc.py): Calculates GPA based on grades entered using the [UChicago](https://registrar.uchicago.edu/page/grading-systems) grading scale
 * To run using the command line enter a command in this format: `python3 gpa_calc.py "['B','A-','B+','B+']"`
 
 [`tennis`](https://github.com/natashamathur/natasha/blob/master/tennis.py): This is a tennis match simulator implemented using classes. 
