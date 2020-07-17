@@ -13,7 +13,8 @@ if __name__ == "__main__":
     else:
         fn = "expenses.json"
 
-    requested_action = args.action.lower()  # account for misspellings
+    requested_action = find_closest(args.action.lower(), choices=valid_actions) # account for misspellings
+    print("Taking Action: {}".format(requested_action))
     if requested_action not in valid_actions:
         print("Invalid Category")
         display_options()

@@ -1,5 +1,6 @@
 import json
 import ast
+import nltk
 import argparse
 from datetime import datetime
 
@@ -15,6 +16,13 @@ blank_expenses = """{'rent': {'budget': 0, 'spent': 0, 'items': {}},
                 'food': {'budget': 0, 'spent': 0, 'items': {}},
                 'discretionary': {'budget': 0, 'spent': 0, 'items': {}}}"""
 
+def find_closest(entry, choices=valid_actions, threshold=0.2):
+    # Find closest choice for word entered among valid choices based on edit distance
+    for choice in choices:
+        ed = nltk.edit_distance(choice, entry) / len(choice)
+        if ed < 0.2:
+            return choice
+    return entry
 
 def manage_ledger(action, ledger=None, filename="expenses.json"):
     # Load and save JSON file containing saved ledger
@@ -47,6 +55,7 @@ def enter_item(action, ledger, details):
 
         category, amount, item = details.split(" ")
         category, amount, item = category.strip(" "), float(amount), item.strip(" ")
+        category = find_closest(entry, choices=categories) # account for misspellings
         focus = ledger[category]
 
         focus["spent"] = focus["spent"] + amount
@@ -69,7 +78,7 @@ def enter_item(action, ledger, details):
 def report_card(filename):
     # Print out spending by category
 
-    ledger = manage_ledger("open", filename=fn)
+    ledger = manage_ledger("open", filename=filename)
 
     print()
     print("MONTH TO DATE: {}".format(datetime.now().strftime("%B")))
@@ -96,7 +105,7 @@ def report_card(filename):
     print()
     print("Total Spent: ${:.2f}".format(total_spent))
 
-    manage_ledger("close", ledger=ledger, filename=fn)
+    manage_ledger("close", ledger=ledger, filename=filename)
 
 
 def add_record(action, fn, details):
@@ -121,3 +130,5 @@ def report_on_item(filename, category):
 def display_options(categories=categories, actions=valid_actions):
     print("The possible actions are: {}".format(", ".join(actions)))
     print("The default categories are: {}".format(", ".join(categories)))
+    
+
