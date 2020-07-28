@@ -7,7 +7,7 @@ from datetime import datetime
 # should be run locally
 
 categories = ["rent", "travel", "transit", "gym", "donations", "food", "discretionary"]
-valid_actions = ["add", "set budget", "report card", "breakdown", "options"]
+valid_actions = ["add", "set budget", "report card", "breakdown", "options", "reset"]
 blank_expenses = """{'rent': {'budget': 0, 'spent': 0, 'items': {}},
                 'travel': {'budget': 0, 'spent': 0, 'items': {}},
                 'transit': {'budget': 0, 'spent': 0, 'items': {}},
@@ -39,7 +39,7 @@ def manage_ledger(action, ledger=None, filename="expenses.json"):
 
 def reset_all(filename, budget_or_spent):
     # type should be "budget" or "spent"
-    ledger = manage_ledger("open", filename=fn)
+    ledger = manage_ledger("open", filename=filename)
     if budget_or_spent == "both":
         ledger = ast.literal_eval(blank_expenses)
     else:
