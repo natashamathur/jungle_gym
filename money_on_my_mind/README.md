@@ -4,7 +4,7 @@ An expense tracker that provides a way to enter in expenses and continually comp
 
 Should be run from the command line with an individual budget saved as a json locally. 
 
-TO DO: Integrate with Twilio to update budget via text
+_TO DO: Integrate with [`Twilio`](https://www.twilio.com/) to update budget via text_
 
 #### Packages: 
 Default: `json`, `ast`, `argparse`, `datetime`
