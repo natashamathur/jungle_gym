@@ -1,6 +1,7 @@
 # Money On My Mind
 
-An expense tracker that provides a way to enter in expenses and continually compares to a provided budget. 
+An expense tracker that provides a way to enter in expenses and continually compare to a provided budget. 
+
 Should be run from the command line with an individual budget saved as a json locally. 
 
 TO DO: Integrate with Twilio to update budget via text
