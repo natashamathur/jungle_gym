@@ -4,6 +4,7 @@ from functions_for_budget_tracker import *
 
 # first run ./ngrok http 5000 in a different tab
 # then run this
+# put ngrok address in https://www.twilio.com/console/phone-numbers
 
 
 app = Flask(__name__)
