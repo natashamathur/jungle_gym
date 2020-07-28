@@ -12,5 +12,5 @@ Default: `json`, `ast`, `argparse`, `datetime`
 Additional: [`nltk`](https://www.nltk.org/install.html)
 
 #### Files & Notebooks
-- [`budget_tracker.py`](https://github.com/natashamathur/jungle_gym/blob/master/money_on_my_mind/budget_tracker.py) Main run file
+- [`cl_budget_tracker.py`](https://github.com/natashamathur/jungle_gym/blob/master/money_on_my_mind/cl_budget_tracker.py) Main run file from command line
 - [`functions_for_budget_tracker.py`](https://github.com/natashamathur/jungle_gym/blob/master/money_on_my_mind/functions_for_budget_tracker.py) Helper functions
