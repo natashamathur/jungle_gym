@@ -36,19 +36,19 @@ if __name__ == "__main__":
         add_record("budget", fn, args.d)
 
     if requested_action == "report card":
-        report_card(fn)
+        print(report_card(fn))
 
     if requested_action == "breakdown":
         if not args.d:
             print("Please enter the category you want broken down.")
-        report_on_item(fn, args.d)
+        print(report_on_item(fn, args.d))
 
     if requested_action == "options":
         display_options()
 
     if requested_action == "reset":
         if args.d:
-            to_erase = args.d
+            reset_all(fn, args.d)
         else:
-            to_erase = "spent"
-        reset_all(fn, args.d)
+            reset_all(fn)
+        

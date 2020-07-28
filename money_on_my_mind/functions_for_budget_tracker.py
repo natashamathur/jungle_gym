@@ -39,7 +39,7 @@ def manage_ledger(action, ledger=None, filename="expenses.json"):
             json.dump(ledger, fp)
 
 
-def reset_all(filename, to_erase="test"):
+def reset_all(filename, to_erase="spent"):
     # budget_or_spent should be: "budget", "spent", or "both"py
     ledger = manage_ledger("open", filename=filename)
     if to_erase == "both":
@@ -87,9 +87,9 @@ def report_card(filename):
 
     ledger = manage_ledger("open", filename=filename)
 
-    print()
-    print("MONTH TO DATE: {}".format(datetime.now().strftime("%B")))
-    print()
+    rc = "\n" 
+    rc = rc + "MONTH TO DATE: {}".format(datetime.now().strftime("%B")) + "\n"
+    
     total_spent = 0
     for category in ledger.keys():
         if ledger[category]["spent"] > 0:
@@ -97,22 +97,23 @@ def report_card(filename):
                 (ledger[category]["spent"] / ledger[category]["budget"]) * 100
             )
             if report >= 80:
-                print("EIGHTY PERCENT USED")
+                rc = rc + "EIGHTY PERCENT USED" + "\n" 
             if report >= 100:
-                print("NO MORE BUDGET FOR {}".format(category))
+                rc = rc + "NO MORE BUDGET FOR {}".format(category) + "\n"
             total_spent += ledger[category]["spent"]
-            print(
-                "{}: {}% (${})".format(
+            rc = rc + "{}: {}% (${})".format(
                     category.title(),
                     str(report),
                     "{:.2f}".format(ledger[category]["spent"]),
-                )
-            )
+                ) + "\n"
+            
 
-    print()
-    print("Total Spent: ${:.2f}".format(total_spent))
+    rc = rc + "Total Spent: ${:.2f}".format(total_spent) + "\n"
 
     manage_ledger("close", ledger=ledger, filename=filename)
+
+    return rc
+
 
 
 def add_record(action, fn, details):
@@ -126,14 +127,22 @@ def add_record(action, fn, details):
 
 
 def report_on_item(filename, category):
-    ledger = manage_ledger("open", filename=fn)
+    ledger = manage_ledger("open", filename)
     category = ledger[category]
-    print("Budget: {}".format(category["budget"]))
-    print("Spent: {}".format(category["spent"]))
-    print("On: {}".format(category["breakdown"]))
+    report =  "\n" + "Budget: {}".format(category["budget"]) + "\n"
+    report = report + "Spent: {}".format(category["spent"]) + "\n"
+    report = report + "On: {}".format(category["breakdown"])
     manage_ledger("close", ledger=ledger)
+    return report
 
 
 def display_options(categories=categories, actions=valid_actions):
     print("The possible actions are: {}".format(", ".join(actions)))
     print("The default categories are: {}".format(", ".join(categories)))
+
+def twilio_status_check():
+    filename = "expenses.json"
+    ledger = manage_ledger("open", filename=filename)
+    message = ledger['discretionary']['spent']
+    manage_ledger("close", ledger=ledger, filename=filename)
+    return message
