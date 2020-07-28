@@ -16,6 +16,7 @@ blank_expenses = """{'rent': {'budget': 0, 'spent': 0, 'items': {}},
                 'food': {'budget': 0, 'spent': 0, 'items': {}},
                 'discretionary': {'budget': 0, 'spent': 0, 'items': {}}}"""
 
+
 def find_closest(entry, choices=valid_actions, threshold=0.2):
     # Find closest choice for word entered among valid choices based on edit distance
     for choice in choices:
@@ -23,6 +24,7 @@ def find_closest(entry, choices=valid_actions, threshold=0.2):
         if ed < 0.2:
             return choice
     return entry
+
 
 def manage_ledger(action, ledger=None, filename="expenses.json"):
     # Load and save JSON file containing saved ledger
@@ -37,14 +39,19 @@ def manage_ledger(action, ledger=None, filename="expenses.json"):
             json.dump(ledger, fp)
 
 
-def reset_all(filename, budget_or_spent):
-    # type should be "budget" or "spent"
+def reset_all(filename, to_erase="test"):
+    # budget_or_spent should be: "budget", "spent", or "both"py
     ledger = manage_ledger("open", filename=filename)
-    if budget_or_spent == "both":
+    if to_erase == "both":
         ledger = ast.literal_eval(blank_expenses)
+    elif to_erase == "spent":
+        for category in ledger.keys():
+            ledger[category][to_erase] = 0
+            ledger[category]["breakdown"] = {}
     else:
         for category in ledger.keys():
-            ledger[category][budget_or_spent] = 0
+            ledger[category][to_erase] = 0
+
     manage_ledger("close", ledger=ledger)
 
 
@@ -55,7 +62,7 @@ def enter_item(action, ledger, details):
 
         category, amount, item = details.split(" ")
         category, amount, item = category.strip(" "), float(amount), item.strip(" ")
-        category = find_closest(entry, choices=categories) # account for misspellings
+        category = find_closest(entry, choices=categories)  # account for misspellings
         focus = ledger[category]
 
         focus["spent"] = focus["spent"] + amount
@@ -130,5 +137,3 @@ def report_on_item(filename, category):
 def display_options(categories=categories, actions=valid_actions):
     print("The possible actions are: {}".format(", ".join(actions)))
     print("The default categories are: {}".format(", ".join(categories)))
-    
-
