@@ -4,8 +4,6 @@ import nltk
 import argparse
 from datetime import datetime
 
-# should be run locally
-
 categories = ["rent", "travel", "transit", "gym", "donations", "food", "discretionary"]
 valid_actions = ["add", "set budget", "report card", "breakdown", "options", "reset"]
 blank_expenses = """{'rent': {'budget': 0, 'spent': 0, 'items': {}},
@@ -15,6 +13,9 @@ blank_expenses = """{'rent': {'budget': 0, 'spent': 0, 'items': {}},
                 'donations': {'budget': 0, 'spent': 0, 'items': {}},
                 'food': {'budget': 0, 'spent': 0, 'items': {}},
                 'discretionary': {'budget': 0, 'spent': 0, 'items': {}}}"""
+
+
+### UTILITIES ###
 
 
 def find_closest(entry, choices=valid_actions, threshold=0.2):
@@ -55,6 +56,9 @@ def reset_all(filename, to_erase="spent"):
     manage_ledger("close", ledger=ledger)
 
 
+### MANAGEMENT ###
+
+
 def enter_item(action, ledger, details):
     # Enter a spending or saving amount
 
@@ -82,40 +86,6 @@ def enter_item(action, ledger, details):
         return ledger
 
 
-def report_card(filename):
-    # Print out spending by category
-
-    ledger = manage_ledger("open", filename=filename)
-
-    rc = "\n" 
-    rc = rc + "MONTH TO DATE: {}".format(datetime.now().strftime("%B")) + "\n"
-    
-    total_spent = 0
-    for category in ledger.keys():
-        if ledger[category]["spent"] > 0:
-            report = round(
-                (ledger[category]["spent"] / ledger[category]["budget"]) * 100
-            )
-            if report >= 80:
-                rc = rc + "EIGHTY PERCENT USED" + "\n" 
-            if report >= 100:
-                rc = rc + "NO MORE BUDGET FOR {}".format(category) + "\n"
-            total_spent += ledger[category]["spent"]
-            rc = rc + "{}: {}% (${})".format(
-                    category.title(),
-                    str(report),
-                    "{:.2f}".format(ledger[category]["spent"]),
-                ) + "\n"
-            
-
-    rc = rc + "Total Spent: ${:.2f}".format(total_spent) + "\n"
-
-    manage_ledger("close", ledger=ledger, filename=filename)
-
-    return rc
-
-
-
 def add_record(action, fn, details):
     # Open ledger, enter item, close ledger
     ledger = manage_ledger("open", filename=fn)
@@ -126,10 +96,49 @@ def add_record(action, fn, details):
         report_card(ledger)
 
 
+### REPORTING ###
+
+
+def report_card(filename):
+    # Print out spending by category
+
+    ledger = manage_ledger("open", filename=filename)
+
+    rc = "\n"
+    rc = rc + "MONTH TO DATE: {}".format(datetime.now().strftime("%B")) + "\n"
+
+    total_spent = 0
+    for category in ledger.keys():
+        if ledger[category]["spent"] > 0:
+            report = round(
+                (ledger[category]["spent"] / ledger[category]["budget"]) * 100
+            )
+            if report >= 80:
+                rc = rc + "EIGHTY PERCENT USED" + "\n"
+            if report >= 100:
+                rc = rc + "NO MORE BUDGET FOR {}".format(category) + "\n"
+            total_spent += ledger[category]["spent"]
+            rc = (
+                rc
+                + "{}: {}% (${})".format(
+                    category.title(),
+                    str(report),
+                    "{:.2f}".format(ledger[category]["spent"]),
+                )
+                + "\n"
+            )
+
+    rc = rc + "Total Spent: ${:.2f}".format(total_spent) + "\n"
+
+    manage_ledger("close", ledger=ledger, filename=filename)
+
+    return rc
+
+
 def report_on_item(filename, category):
     ledger = manage_ledger("open", filename)
     category = ledger[category]
-    report =  "\n" + "Budget: {}".format(category["budget"]) + "\n"
+    report = "\n" + "Budget: {}".format(category["budget"]) + "\n"
     report = report + "Spent: {}".format(category["spent"]) + "\n"
     report = report + "On: {}".format(category["breakdown"])
     manage_ledger("close", ledger=ledger)
@@ -139,10 +148,3 @@ def report_on_item(filename, category):
 def display_options(categories=categories, actions=valid_actions):
     print("The possible actions are: {}".format(", ".join(actions)))
     print("The default categories are: {}".format(", ".join(categories)))
-
-def twilio_status_check():
-    filename = "expenses.json"
-    ledger = manage_ledger("open", filename=filename)
-    message = ledger['discretionary']['spent']
-    manage_ledger("close", ledger=ledger, filename=filename)
-    return message

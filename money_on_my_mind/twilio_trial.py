@@ -10,18 +10,19 @@ from functions_for_budget_tracker import *
 app = Flask(__name__)
 
 
-@app.route('/sms', methods=['POST'])
+@app.route("/sms", methods=["POST"])
 def sms():
-    
-    message_body = request.form['Body']
+
+    message_body = request.form["Body"]
     if "status" in message_body.lower():
-    	print("here")
-    	message = report_card("expenses.json")
+        print("here")
+        message = report_card("expenses.json")
 
     resp = MessagingResponse()
 
     resp.message(message)
     return str(resp)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run()
