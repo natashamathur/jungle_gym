@@ -2,9 +2,11 @@ import re
 import time
 import pandas as pd
 import wikipediaapi
+
 wiki = wikipediaapi.Wikipedia("en")
 
 import nltk
+
 nltk.download("wordnet")
 from nltk.corpus import wordnet as wn
 from datetime import datetime, timedelta
@@ -15,10 +17,11 @@ from bs4 import BeautifulSoup
 
 from occupational_dictionary import occ_dict
 
-# Access Wikipedia API 
+# Access Wikipedia API
 
-def run_wikipedia_api(df, unique_id='email'):
-    '''Runs through a pandas dataframe and makes a dictionary of all unique_ids and bios found'''
+
+def run_wikipedia_api(df, unique_id="email"):
+    """Runs through a pandas dataframe and makes a dictionary of all unique_ids and bios found"""
 
     wiki_dict = {}
 
@@ -43,17 +46,20 @@ def run_wikipedia_api(df, unique_id='email'):
 
     return wiki_dict
 
+
 def get_wiki_info(unique_id, info, wiki_dict):
-    '''Applies information from wikipedia onto pandas dataframe.'''
+    """Applies information from wikipedia onto pandas dataframe."""
     if unique_id in wiki_dict.keys():
         return wiki_dict[unique_id][info]
     else:
         return ""
 
+
 # Match occupations to wikipedia description
 
+
 def classify(occupation, occ_dict):
-    '''Checks if occupation in board dictionary of occupation categories.'''
+    """Checks if occupation in board dictionary of occupation categories."""
     cats = []
     if type(occupation) == str:
         occupation = occupation.split()
@@ -62,8 +68,9 @@ def classify(occupation, occ_dict):
             cats.append(occ_dict[o])
     return cats
 
+
 def extract_occ(s):
-    '''Parses bio summary based on common sentence structures to try extract occupation.'''
+    """Parses bio summary based on common sentence structures to try extract occupation."""
     try:
         s = re.split(" [a-z]{2}[.] ", s)
         s = s[0].split(" is ")[1]
@@ -79,6 +86,7 @@ def extract_occ(s):
     except Exception:
         return []
 
+
 def check_match(x, y):
     for i in x:
         for j in y:
@@ -87,9 +95,10 @@ def check_match(x, y):
 
     return False
 
+
 def get_score(o1, o2):
-    '''Calculates the path similarity between the provided occupation and the Wikipedia occupation 
-        based on hypernym/hyponym taxonomy.'''
+    """Calculates the path similarity between the provided occupation and the Wikipedia occupation 
+        based on hypernym/hyponym taxonomy."""
 
     score = 0
     if "self" in o1.lower():
@@ -112,23 +121,27 @@ def get_score(o1, o2):
 
 
 def check_names(first, last, wiki_name):
-    '''Ensure that wikipedia name and provided name match.'''
+    """Ensure that wikipedia name and provided name match."""
 
     wn = wiki_name.split(" ")
     wiki_first, wiki_last = wn[0], wn[-1]
 
-    if jf.jaro_winkler(last, wiki_last) < 0.95: or jf.jaro_winkler(first, wiki_first) < 0.95:
+    if (
+        jf.jaro_winkler(last, wiki_last) < 0.95
+        or jf.jaro_winkler(first, wiki_first) < 0.95
+    ):
         return False
     return True
 
-def find_matches(names):
-    '''Checks whether provided occupation matches the Wikipedia description
-        to determine whether this is an accurate match.'''
 
-    # Classifies provided occupation    
+def find_matches(names):
+    """Checks whether provided occupation matches the Wikipedia description
+        to determine whether this is an accurate match."""
+
+    # Classifies provided occupation
     names["occ_cat"] = names.occupation.apply(lambda x: classify(x, occ_dict))
 
-    # Extracts occupation from Wikipedia bio and categories as above. 
+    # Extracts occupation from Wikipedia bio and categories as above.
     names["wiki_occ"] = names.wiki_bio.apply(extract_occ,)
     names["wiki_cat"] = names.wiki_occ.apply(lambda x: classify(x, occ_dict))
 
@@ -147,16 +160,18 @@ def find_matches(names):
         lambda x: check_names(x[0], x[1], x[2]), axis=1
     )
 
-    '''
+    """
     Narrow down to people who have a wikipedia-derived occupation and  at least a moderate path similarity.
-    '''
-    names_proc = names_proc[(occ_match_score.score > 0.3) & (len(names.wiki_occ) > 0)].copy()
+    """
+    names_proc = names_proc[
+        (occ_match_score.score > 0.3) & (len(names.wiki_occ) > 0)
+    ].copy()
 
-    '''
+    """
     People who either 1) have exactly matched categories or 2) have a higher path similarity between occupations 
-    '''
+    """
     names_proc = names.loc[
-        (names.is_match == True) | (names.occ_match_score > 0.5) & 
+        (names.is_match == True) | (names.occ_match_score > 0.5)
     ].copy()
 
     # Confirm that name match
@@ -168,12 +183,15 @@ def find_matches(names):
     ].copy()
 
     # Get url for matched names
-    names_proc["wiki_url"] = names_proc.wiki_name.apply(lambda x: f"https://en.wikipedia.org/wiki/{wn.replace(" ", "_")}")
+    names_proc["wiki_url"] = names_proc.wiki_name.apply(
+        lambda x: "https://en.wikipedia.org/wiki/{}".format(wn.replace(" ", "_"))
+    )
 
     # Remove processing columns
-    names_proc = names_proc.drop(['occ_cat',  'wiki_cat', 'is_match', 'occ_match_score', 'name_check'])
+    names_proc = names_proc.drop(
+        ["occ_cat", "wiki_cat", "is_match", "occ_match_score", "name_check"]
+    )
 
     print(f"There were {len(names_proc)} matches found.")
 
     return names_proc
-
