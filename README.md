@@ -3,7 +3,7 @@
 
 [`paparazzi`](https://github.com/natashamathur/jungle_gym/tree/master/paparazzi): Determines whether a list of names correspond to individuals who have Wikipedia pages based on NLTK comparison of occupation. 
 
-[`money_on_my_mind`](https://github.com/natashamathur/jungle_gym/blob/master/money_on_my_mind): Text-message based budget tracker.
+[`money_on_my_mind`](https://github.com/natashamathur/jungle_gym/tree/master/money_on_my_mind_development): Text-message based budget tracker.
 
 [`gpa_calc`](https://github.com/natashamathur/natasha/blob/master/gpa_calc.py): Calculates GPA based on grades entered using the [UChicago](https://registrar.uchicago.edu/page/grading-systems) grading scale
 * To run using the command line enter a command in this format: `python3 gpa_calc.py "['B','A-','B+','B+']"`
